@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Psychic game</title>
+</head>
+<body>
+<h1>Guess a letter </h1>
+<h2> Wins : <span id="wins">0</span></h2>
+<h2> Losses : <span id="losses">0</span></h2>
+<h2> Guesses left : <span id="left">10</span></h2>
+<h2> Letters guessed : <span id="letters"></span></h2>
+<h3>Random: <span id="random"></span></h3>
+<h3>guess: <span id="guess"></span></h3>
+<script type="text/javascript">
+
+
+   // Setting vars and connecting with html
+    var wins = 0;
+	var losses = 0;
+	var guessesLeft = 10;
+    var letters = [];
+  
+   	 // Alphabet Array for options for userGuess
+   	
+    var options = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    
+	var randomLetter = options[Math.floor(Math.random() * options.length)];
+   	console.log(randomLetter);
+   	var rando = randomLetter;
+   	document.getElementById("random").innerHTML=(rando);
+   	
+  	 document.onkeyup = function(event) {
+       // make lowercase
+       var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+       console.log(userGuess);
+
+       // reduce number of guesses
+       guessesLeft--;
+
+       // push into already guessed array
+       letters.push(userGuess);
+       document.getElementById("letters").innerHTML=(letters);
+
+       // update html for guesses left
+       document.getElementById("left").innerHTML=(guessesLeft);
+       document.getElementById("guess").innerHTML=(userGuess);
+       // if there are any guesses left then compare
+       if( guessesLeft > 1 ) {
+
+           // compare random to guessed
+           if ((userGuess == rando)) {
+
+               // reset the guessesLeft count and random select new letter and store it
+               var randomLetter2 = options[Math.floor(Math.random() * options.length)];
+               console.log(randomLetter2);
+               guessesLeft = 10;
+               document.getElementById("random").innerHTML=(randomLetter2);
+               rando = randomLetter2;
+
+       
+               // if it matches update wins count and wins html
+               wins++;
+               document.getElementById("wins").innerHTML =(wins);        
+               
+           }
+       } else { 
+               // if out of guesses update loses and show html
+               losses++; 
+               document.getElementById("losses").innerHTML=(losses);
+               guessesLeft = 10;
+               
+       }
+
+   }
+   
+
+
+
+</script>
+</body>
+</html>
